@@ -1,6 +1,8 @@
 import * as cdk from "@aws-cdk/core";
 import * as amplify from "@aws-cdk/aws-amplify";
 import * as codebuild from 'aws-cdk-lib/aws-codebuild';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
+
 
 export class AmplifyStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -9,7 +11,6 @@ export class AmplifyStack extends cdk.Stack {
         const token = cdk.SecretValue.secretsManager('AmplifyToken', {
             jsonField: 'AmplifyToken',
         });
-        console.log('OAuth Token:', token.toString());
 
         const amplifyApp = new amplify.App(this, 'AmplifyApp', {
             sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
@@ -17,27 +18,27 @@ export class AmplifyStack extends cdk.Stack {
                 repository: 'AWS-Amplify-Project',
                 oauthToken: token,
             }),
-            // buildSpec: codebuild.BuildSpec.fromObjectToYaml({
-            //     version: '1',
-            //     frontend: {
-            //         phases: {
-            //             build: {
-            //                 commands: [
-            //                     'cd sample-app',
-            //                     'npm install',
-            //                     'npm run build',
-            //                 ],
-            //             },
-            //         },
-            //         artifacts: {
-            //             baseDirectory: 'sample-app/build',
-            //             files: ['**/*'],
-            //         },
-            //         cache: {
-            //             paths: ['node_modules/**/*'],
-            //         },
-            //     },
-            // }),
+            buildSpec: codebuild.BuildSpec.fromObjectToYaml({
+                version: '1',
+                frontend: {
+                    phases: {
+                        build: {
+                            commands: [
+                                'cd sample-app',
+                                'npm install',
+                                'npm run build',
+                            ],
+                        },
+                    },
+                    artifacts: {
+                        baseDirectory: 'sample-app/build',
+                        files: ['**/*'],
+                    },
+                    cache: {
+                        paths: ['node_modules/**/*'],
+                    },
+                },
+            }),
         });
 
         // Output URL
