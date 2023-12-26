@@ -10,7 +10,7 @@ export class AmplifyStack extends cdk.Stack {
             sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
                 owner: 'SathishTecofize',
                 repository: 'AWS-Amplify-Project',
-                oauthToken: cdk.SecretValue.secretsManager('githubtoken'),
+                oauthToken: cdk.SecretValue.secretsManager('AmplifyToken'),
             }),
             buildSpec: codebuild.BuildSpec.fromObjectToYaml({
                 version: '1',
