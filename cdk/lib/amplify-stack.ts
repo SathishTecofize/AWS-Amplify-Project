@@ -17,27 +17,27 @@ export class AmplifyStack extends cdk.Stack {
                 repository: 'AWS-Amplify-Project',
                 oauthToken: token,
             }),
-            buildSpec: codebuild.BuildSpec.fromObjectToYaml({
-                version: '1',
-                frontend: {
-                    phases: {
-                        build: {
-                            commands: [
-                                'cd sample-app',
-                                'npm install',
-                                'npm run build',
-                            ],
-                        },
-                    },
-                    artifacts: {
-                        baseDirectory: 'sample-app/build',
-                        files: ['**/*'],
-                    },
-                    cache: {
-                        paths: ['node_modules/**/*'],
-                    },
-                },
-            }),
+            // buildSpec: codebuild.BuildSpec.fromObjectToYaml({
+            //     version: '1',
+            //     frontend: {
+            //         phases: {
+            //             build: {
+            //                 commands: [
+            //                     'cd sample-app',
+            //                     'npm install',
+            //                     'npm run build',
+            //                 ],
+            //             },
+            //         },
+            //         artifacts: {
+            //             baseDirectory: 'sample-app/build',
+            //             files: ['**/*'],
+            //         },
+            //         cache: {
+            //             paths: ['node_modules/**/*'],
+            //         },
+            //     },
+            // }),
         });
 
         // Output URL
