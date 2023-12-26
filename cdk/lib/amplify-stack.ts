@@ -44,7 +44,7 @@ export class AmplifyStack extends cdk.Stack {
         // Output URL
         new cdk.CfnOutput(this, 'ReactAppUrl', {
             value: amplifyApp.defaultDomain,
-            description: 'URL of the deployed React app',
+            description: 'URL of the deployed React app test',
         });
     }
 }
