@@ -6,11 +6,16 @@ export class AmplifyStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
+        const token = cdk.SecretValue.secretsManager('AmplifyToken', {
+            jsonField: 'AmplifyToken',
+        });
+        console.log('OAuth Token:', token.toString());
+
         const amplifyApp = new amplify.App(this, 'AmplifyApp', {
             sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
                 owner: 'SathishTecofize',
                 repository: 'AWS-Amplify-Project',
-                oauthToken: cdk.SecretValue.secretsManager('AmplifyToken'),
+                oauthToken: token,
             }),
             buildSpec: codebuild.BuildSpec.fromObjectToYaml({
                 version: '1',
