@@ -51,9 +51,10 @@ export class AmplifyStack extends cdk.Stack {
 
 
         const domain = amplifyApp.addDomain('amplify.demo.qoredms.com', {
-            domainName: domainName,
-            subDomains: [{ branch: main, prefix: 'amplify' }],
+            enableAutoSubdomain: true,
+            autoSubdomainCreationPatterns: ['*', 'pr*'],
         });
+        domain.mapRoot(main);
 
 
         // Output URL
