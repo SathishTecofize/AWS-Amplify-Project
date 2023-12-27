@@ -41,6 +41,8 @@ export class AmplifyStack extends cdk.Stack {
             }),
         });
 
+        const deploy = amplifyApp.addBranch('deploy');
+
         // Output URL
         new cdk.CfnOutput(this, 'ReactAppUrl', {
             value: amplifyApp.defaultDomain,
