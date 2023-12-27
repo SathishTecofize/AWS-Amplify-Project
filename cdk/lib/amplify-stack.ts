@@ -3,6 +3,9 @@ import * as amplify from "@aws-cdk/aws-amplify";
 import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as certificatemanager from '@aws-cdk/aws-certificatemanager';
+import * as route53 from '@aws-cdk/aws-route53';
+import * as route53Targets from '@aws-cdk/aws-route53-targets';
+
 
 
 export class AmplifyStack extends cdk.Stack {
@@ -45,17 +48,22 @@ export class AmplifyStack extends cdk.Stack {
         const deploy = amplifyApp.addBranch('deploy');
         const main = amplifyApp.addBranch('main');
 
-        const domainName = 'amplify.demo.qoredms.com';
-        const existingCertificateArn = 'arn:aws:acm:us-east-1:369714029605:certificate/a83d1ed6-89bb-44f7-bde7-83ea19e422cf';
-        const existingCertificate = certificatemanager.Certificate.fromCertificateArn(this, 'ExistingCertificate', existingCertificateArn);
-
-
-        const domain = amplifyApp.addDomain('amplify.demo.qoredms.com', {
+        const domain = amplifyApp.addDomain('demo.qoredms.com', {
+            subDomains: [
+                {
+                    branch: deploy,
+                    prefix: 'deploy',
+                },
+                {
+                    branch: main,
+                    prefix: 'main',
+                },
+            ],
             enableAutoSubdomain: true,
             autoSubdomainCreationPatterns: ['*', 'pr*'],
         });
-        domain.mapRoot(main);
 
+        domain.mapRoot(main);
 
         // Output URL
         new cdk.CfnOutput(this, 'ReactAppUrl', {
