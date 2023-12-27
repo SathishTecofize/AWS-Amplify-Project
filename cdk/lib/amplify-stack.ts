@@ -48,7 +48,7 @@ export class AmplifyStack extends cdk.Stack {
         const deploy = amplifyApp.addBranch('deploy');
         const main = amplifyApp.addBranch('main');
 
-        const domain = amplifyApp.addDomain('demo.qoredms.com', {
+        const domain = amplifyApp.addDomain('amplify.demo.qoredms.com', {
             subDomains: [
                 {
                     branch: deploy,
