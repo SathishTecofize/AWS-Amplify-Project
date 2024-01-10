@@ -48,22 +48,22 @@ export class AmplifyStack extends cdk.Stack {
         const deploy = amplifyApp.addBranch('deploy');
         const main = amplifyApp.addBranch('main');
 
-        const domain = amplifyApp.addDomain('amplify.demo.qoredms.com', {
-            subDomains: [
-                {
-                    branch: deploy,
-                    prefix: 'deploy',
-                },
-                {
-                    branch: main,
-                    prefix: 'main',
-                },
-            ],
-            enableAutoSubdomain: true,
-            autoSubdomainCreationPatterns: ['*', 'pr*'],
-        });
+        // const domain = amplifyApp.addDomain('amplify.demo.qoredms.com', {
+        //     subDomains: [
+        //         {
+        //             branch: deploy,
+        //             prefix: 'deploy',
+        //         },
+        //         {
+        //             branch: main,
+        //             prefix: 'main',
+        //         },
+        //     ],
+        //     enableAutoSubdomain: true,
+        //     autoSubdomainCreationPatterns: ['*', 'pr*'],
+        // });
 
-        domain.mapRoot(main);
+        // domain.mapRoot(main);
 
         // Output URL
         new cdk.CfnOutput(this, 'ReactAppUrl', {
