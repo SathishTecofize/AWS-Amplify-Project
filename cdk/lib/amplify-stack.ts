@@ -65,6 +65,7 @@ export class AmplifyStack extends cdk.Stack {
 
         // domain.mapRoot(main);
 
+
         // Output URL
         new cdk.CfnOutput(this, 'ReactAppUrl', {
             value: amplifyApp.defaultDomain,
